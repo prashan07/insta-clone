@@ -3,14 +3,19 @@ import Avatar from '@material-ui/core/Avatar';
 import { Input, Button } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import './Post.css';
+import { green } from '@material-ui/core/colors';
 import firebase from 'firebase';
 import { auth, db } from './firebase';
+import { makeStyles } from '@material-ui/core/styles';
 
 function Post({postId, user, username, imgUrl, caption}) {
 
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState("");
+    const classes = makeStyles(iconStyles)();
+    const [likeCounter, setLikeCounter] = useState("0");
 
     // Extract all the comments from the database for each post
     useEffect(() => {
@@ -43,6 +48,28 @@ function Post({postId, user, username, imgUrl, caption}) {
         setComment("");
     }
 
+    function iconStyles() {
+        return {
+          successIcon: {
+              fill: "#d00000"
+          },
+        }
+    }
+
+    const likeIncrease = ()=>{
+        
+        setLikeCounter("1");
+    }
+
+    const likeDecrease =()=>{
+        document.getElementsByClassName(classes.successIcon).onClick = changeColor;
+
+        function changeColor() {
+            // return false;
+        }   
+        setLikeCounter("0");
+    }
+
     return (
         <div className="post">
 
@@ -59,8 +86,14 @@ function Post({postId, user, username, imgUrl, caption}) {
             
             <div className="post__interact">
                 <div className="like_comment">
-                    <Button className="like__icon"><FavoriteBorderIcon/></Button>
-                    <Button className="comment__icon"><ChatBubbleOutlineIcon/></Button>
+                    <Button className="like__icon">
+                        {likeCounter==="0" ? (
+                            <FavoriteBorderIcon onClick={likeIncrease} style={{color: "black"}}/>
+                        ):(
+                            <FavoriteIcon onClick={likeDecrease} className={classes.successIcon}/>
+                        )}
+                        </Button>
+                    <Button className="comment__icon" src=".post__input"><ChatBubbleOutlineIcon/></Button>
                     
                 </div>
                 {/* Likes */}
@@ -93,7 +126,7 @@ function Post({postId, user, username, imgUrl, caption}) {
                     type="submit"
                     disabled ={!comment}
                     onClick={postComment}
-                    variant="outlined"
+                    variant="contained"
                     color="primary">
                     Post
                 </Button>
