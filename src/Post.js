@@ -5,7 +5,6 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import './Post.css';
-import { green } from '@material-ui/core/colors';
 import firebase from 'firebase';
 import { auth, db } from './firebase';
 import { makeStyles } from '@material-ui/core/styles';
@@ -69,10 +68,10 @@ function Post({postId, user, username, imgUrl, caption}) {
         }   
         setLikeCounter("0");
     }
+    console.log("Working");
 
     return (
         <div className="post">
-
             {/* Header */}
             <div className="post__header">
                 <Avatar 

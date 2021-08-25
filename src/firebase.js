@@ -1,7 +1,7 @@
 import firebase from "firebase";
 
 const firebaseApp = firebase.initializeApp({
-    apiKey: "AIzaSyB4JDFyYOiGHB0U-ppcPEiUxk4O2EjwgOc",
+  apiKey: "AIzaSyB4JDFyYOiGHB0U-ppcPEiUxk4O2EjwgOc",
   authDomain: "insta-clone-07.firebaseapp.com",
   projectId: "insta-clone-07",
   storageBucket: "insta-clone-07.appspot.com",
